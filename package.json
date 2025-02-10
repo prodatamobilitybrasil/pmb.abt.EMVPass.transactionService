@@ -1,0 +1,35 @@
+{
+  "name": "pmb.abt.emvpass.transactionservice",
+  "version": "1.0.0",
+  "description": "Aplicação responsável por processar transações 1TAP enviadas do validador para o Tank, e do Tank para a fila de transações 1TAP.",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon src/index.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/prodatamobilitybrasil/pmb.abt.EMVPass.transactionService.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/prodatamobilitybrasil/pmb.abt.EMVPass.transactionService/issues"
+  },
+  "homepage": "https://github.com/prodatamobilitybrasil/pmb.abt.EMVPass.transactionService#readme",
+  "devDependencies": {
+    "@types/amqplib": "^0.10.6",
+    "@types/mongodb": "^4.0.6",
+    "@types/oracledb": "^6.5.3",
+    "nodemon": "^3.1.9",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.7.3"
+  },
+  "dependencies": {
+    "amqplib": "^0.10.5",
+    "dotenv": "^16.4.7",
+    "mongodb": "^6.13.0",
+    "oracledb": "^6.7.1"
+  }
+}
