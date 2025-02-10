@@ -1,0 +1,31 @@
+export interface InsertEMVCieloParams {
+    proc_version?: number; 
+    etrn_id?: number; 
+    wlt_id?: number; 
+    wlt_reguser?: string; 
+    wlt_hsmkey?: number; 
+    wlt_walletsign?: string; 
+    ecrd_pantoken?: string; 
+    ecrd_firstsixnumber?: string; 
+    ecrd_lastfournumber?: string; 
+    ecrd_cardholdername?: string; 
+    ecrd_validthru?: string; 
+    eacc_par?: string; 
+    etrn_value?: number; 
+    etrn_orderkey?: string; 
+    etrn_requestdate?: Date; 
+    etrn_merchant_id?: string; 
+    etrn_terminal?: string; 
+    etrn_stan?: string; 
+    etrn_iti?: string; 
+    etrn_tlvdata?: string; 
+    etrn_status?: string; 
+    etrn_authrsn?: number; 
+    etrn_aid?: string;
+    etrn_retrytype?: number;
+    etrn_elapsed_process?: number;
+    etrn_elapsed_acquirer?: number;
+    etrn_device_pay?: string;
+    etrn_brand_card?: string;
+    etrn_soft_description?: string;
+}
