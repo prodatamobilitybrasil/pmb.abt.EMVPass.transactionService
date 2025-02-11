@@ -47,7 +47,7 @@ export class CieloSaleGateway implements IGateway<any> {
 
             return JSON.parse(result);
         } catch(err) {
-            console.log("error when charging!\n", err);
+            console.log("Error when making payment!\n", err);
         }
     }
 }

@@ -1,5 +1,7 @@
 import { ITransactionEMV } from "../entities/transaction_emv";
 import { CieloAuthGateway } from "../gateways/cielo_auth/cielo_auth_gateway";
+import { CieloCheckGateway } from "../gateways/cielo_check/cielo_check_gateway";
+import { CieloConfirmationGateway } from "../gateways/cielo_confirmation/cielo_confirmation_gateway";
 import { CieloSaleGateway } from "../gateways/cielo_sale/cielo_sale_gateway";
 import { TransactionEMVRepository } from "../repository/collections/transaction_emv/transaction_emv_repository";
 import { AbtInsertEMVCieloRepository } from "../repository/procedures/insert_emv_cielo/insert_emv_cielo_repository";
@@ -48,5 +50,15 @@ export class TransactionEMVUsecase implements IUsecase<ITransactionEMV> {
         const cieloSale = new CieloSaleGateway(data);
         const chargeResult = await cieloSale.execute();
         console.log("CHARGE RESULT: ", chargeResult);
+
+        const cieloConfirmation = new CieloConfirmationGateway(data);
+        const confirmationResult = await cieloConfirmation.execute();
+        console.log("CONFIRMATION RESULT: ", confirmationResult);
+
+        const cieloCheck = new CieloCheckGateway(data);
+        const checkResult = await cieloCheck.execute();
+        console.log("CHECK RESULT: ", checkResult);
+
+
     }
 }

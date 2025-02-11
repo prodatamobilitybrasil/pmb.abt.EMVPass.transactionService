@@ -1,4 +1,4 @@
-import { BIND_INOUT, BIND_OUT, BindParameters, CURSOR, NUMBER, Result, ResultSet, STRING } from "oracledb";
+import { BIND_INOUT, BIND_OUT, BindParameters, CURSOR, NUMBER, STRING } from "oracledb";
 import { OracleDB } from "../../../infra/oracle_db/oracle_db";
 import { IProcedure } from "../procedure";
 import { InsertEMVCieloParams } from "./insert_emv_cielo_params";
