@@ -14,10 +14,10 @@ export class CieloCheckGateway implements IGateway<any> {
     }
     
     async execute(): Promise<any> {
-        const baseUrl = process.env.CIELO_PHYSICAL_SALES!;
+        const baseUrl = process.env.CIELO_QUERY!;
         try {
             const headers = new Headers();
-            // headers.append("Content-Type", "application/json");
+            headers.append("Content-Type", "application/json");
             headers.append("Authorization", `Bearer ${CieloAuthGateway.token}`);
             if (process.env.ENVIRONMENT !== "PROD") headers.append("Environment", "Homologacao");
             
