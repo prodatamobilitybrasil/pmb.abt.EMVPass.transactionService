@@ -24,15 +24,14 @@ export class CieloCheckGateway implements IGateway<any> {
             const url = this.merchantOrderId ? `${baseUrl}/MerchantOrderId/${this.merchantOrderId}` : `${baseUrl}/${this.paymentId}`;
 
             const response = await fetch(url, { method: "GET", headers });
+
             const result = await response.text();
 
             if(response.status !== 200) throw new Error(`Status: ${response.status} - ${response.statusText}\n ${result}`);
 
             return JSON.parse(result);
-
         } catch(err) {
             console.log("Error check transaction status!\n", err);
         }
     }
-
 }
