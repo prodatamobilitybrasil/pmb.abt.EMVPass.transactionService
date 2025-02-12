@@ -1,9 +1,9 @@
 import { CieloAuthGateway } from "../cielo_auth/cielo_auth_gateway";
 import { IGateway } from "../gateway";
-import { ICieloConfirmation, ITransactionEMVCieloConfirmation } from "./cielo_confirmations";
+import { ICieloConfirmation, ICieloConfirmationResponse, ITransactionEMVCieloConfirmation } from "./cielo_confirmations";
 
 
-export class CieloConfirmationGateway implements IGateway<any> {
+export class CieloConfirmationGateway implements IGateway<ICieloConfirmationResponse> {
     private cieloConfirmationBody: ICieloConfirmation;
     private param?: string;
 
@@ -16,7 +16,7 @@ export class CieloConfirmationGateway implements IGateway<any> {
         this.param = transaction.paymentId || transaction.merchantOrderId;
     }
     
-    async execute(): Promise<any> {
+    async execute(): Promise<ICieloConfirmationResponse | undefined> {
         const url = process.env.CIELO_PHYSICAL_SALES!;
         try {
             const headers = new Headers();
