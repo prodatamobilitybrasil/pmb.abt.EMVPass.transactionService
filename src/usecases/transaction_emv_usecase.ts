@@ -27,10 +27,11 @@ export class TransactionEMVUsecase implements IUsecase<ITransactionEMV> {
 
         const cieloSale = new CieloSaleGateway(data);
         const saleResult = await cieloSale.execute();
-        if(saleResult) {
+        if(!saleResult) {
             const message = { message: "Transaction Sale Error: ", data: saleResult };
             throw new Error(JSON.stringify(message));
         }
+        console.log("Transaction Executed on Sale API from CIELO - MerchantOrderId: ", saleResult.MerchantOrderId);
 
         const objectId = await this.repository_transaction_emv.insert(data);
         if (!objectId) {
