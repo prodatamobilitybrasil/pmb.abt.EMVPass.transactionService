@@ -68,6 +68,7 @@ CIELO_CLIENT_ID="26fac498-0460-4442-82c6-27d5aae3d61f"
 CIELO_CLIENT_SECRET="1jU3CmDUx4QqcRpvgNcJiYkWUsQbGbeZOYS1P00O1uI="
 CIELO_GRANT_TYPE="client_credentials"
 ```
+**OBS:** Para execução da aplicação é necessário estar conectado a rede interna da Prodata seja presencialmente ou através de VPN.
 - Teste sua aplicação:
 ```shell
 npm test
