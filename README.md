@@ -80,4 +80,53 @@ npm run dev
 ```
 </details>
 
+<details>
+  <summary>Controle de versão com Git Flow</summary>
+O Git Flow é um modelo, uma estratégia ou, ainda, um fluxo de trabalho muito utilizado por equipes de desenvolvimento de software. Ele se destaca por auxiliar na organização do versionamento de códigos.
+
+O Git Flow trabalha com duas branches principais, a Develop e a Master, que duram para sempre; e três branches de suporte, Feature, Release e Hotfix, que são temporários e duram até realizar o merge com as branches principais.
+
+Então, ao invés de uma única branch Master, esse fluxo de trabalho utiliza duas branches principais para registrar o histórico do projeto. A branch Master armazena o histórico do lançamento oficial, e a branch Develop serve como uma ramificação de integração para recursos.
+
+É ideal que todos os commits na branch Master sejam marcados com um número de versão. Na imagem abaixo, vemos como é a estrutura do fluxo do Git Flow:
+
+![Git Flow](./resource/gitflow.png)
+
+</details>
+
+<details>
+  <summary>Padrões de Commit</summary>
+
+Para convenção de commit utilizamos padrões na mensagem de texto, onde cada comentário deve estar dentro do esperado senão, o commit não será realizado.
+- **FEAT**: para adicionar funcionalidades.
+```sh
+git commit -m "feat: descrição breve sobre a feature desenvolvida"
+```
+- **FIX**: para adicionar correções de bugs.
+```sh
+git commit -m "fix: descrição breve sobre a correção implementada"
+```
+- **CHORE**: para atualização de dependências.
+```sh
+git commit -m "chore: descrição breve sobre a atualização realizada"
+```
+- **DOCS**: para adicionar ou alterar documentação ao projeto.
+```sh
+git commit -m "docs: descrição breve sobre a documentação adicionada"
+```
+- **TEST**: para adicionar testes a aplicação.
+```sh
+git commit -m "test: descrição breve sobre os testes implementados"
+```
+</details>
+
+<details>
+  <summary>Versionamento Semântico</summary>
+O versionamento semântico se baseia em documentar a versão da aplicação com base no amadurecimento da mesma. Utilizamos três casas numéricas separadas por um ponto, onde cada casa tem sua função e demonstra diferentes contextos onde a aplicação evoluiu, vamos exemplificar com o valor 1.0.0:
+
+- **Major (1)**: adicionamos +1 para quando temos uma quantidade grande de funcionalidades e ou de comportamentos novos ou diferentes da versão anterior.
+- **Minor (primeiro zero)**: adicionamos +1 para cada funcionalidade adicionada, zerada quando o Major subir.
+- **Patch (segundo zero)**: adicionamos +1 para cada uma das pequenas alterações, como correção de bugs, documentações e testes, sendo zerada quando o Major subir.
+</details>
+
 ![alt text](./resource/image.png)

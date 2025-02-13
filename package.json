@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "nodemon src/index.ts",
     "build": "tsc",
-    "test": "jest"
+    "test": "jest",
+    "prepare": "husky .config"
   },
   "repository": {
     "type": "git",
@@ -20,10 +21,13 @@
   },
   "homepage": "https://github.com/prodatamobilitybrasil/pmb.abt.EMVPass.transactionService#readme",
   "devDependencies": {
+    "@commitlint/cli": "^19.7.1",
+    "@commitlint/config-conventional": "^19.7.1",
     "@types/amqplib": "^0.10.6",
     "@types/jest": "^29.5.14",
     "@types/mongodb": "^4.0.6",
     "@types/oracledb": "^6.5.3",
+    "husky": "^9.1.7",
     "jest": "^29.7.0",
     "nodemon": "^3.1.9",
     "ts-jest": "^29.2.5",
