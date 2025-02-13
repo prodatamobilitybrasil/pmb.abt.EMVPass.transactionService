@@ -21,6 +21,8 @@
   },
   "homepage": "https://github.com/prodatamobilitybrasil/pmb.abt.EMVPass.transactionService#readme",
   "devDependencies": {
+    "@commitlint/cli": "^19.7.1",
+    "@commitlint/config-conventional": "^19.7.1",
     "@types/amqplib": "^0.10.6",
     "@types/jest": "^29.5.14",
     "@types/mongodb": "^4.0.6",
