@@ -1,4 +1,4 @@
-import amqp, { Connection, Channel } from 'amqplib';
+import amqp, { Connection } from 'amqplib';
 
 interface IRabbitMQ {
     connect(username: string, password: string, hostname: string, port: number, vhost: string): Promise<void>;

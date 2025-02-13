@@ -1,8 +1,8 @@
 import { CieloAuthGateway } from "../cielo_auth/cielo_auth_gateway";
 import { IGateway } from "../gateway";
-import { ICieloSale, ITransactionEMVCielo } from "./cielo_sale";
+import { ICieloSale, ICieloSaleResponse, ITransactionEMVCielo } from "./cielo_sale";
 
-export class CieloSaleGateway implements IGateway<any> {
+export class CieloSaleGateway implements IGateway<ICieloSaleResponse> {
     private cieloSaleBody: ICieloSale;
 
     constructor(transaction: ITransactionEMVCielo) {
@@ -32,7 +32,7 @@ export class CieloSaleGateway implements IGateway<any> {
         }
     }
 
-    async execute(): Promise<any> {
+    async execute(): Promise<ICieloSaleResponse | undefined> {
         const url = process.env.CIELO_PHYSICAL_SALES!;
         try {
             const headers = new Headers();
@@ -47,7 +47,7 @@ export class CieloSaleGateway implements IGateway<any> {
 
             return JSON.parse(result);
         } catch(err) {
-            console.log("error when charging!\n", err);
+            console.log("Error when making payment!\n", err);
         }
     }
 }

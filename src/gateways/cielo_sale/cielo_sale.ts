@@ -26,3 +26,63 @@ export interface ICieloSale {
         };
     };
 };
+
+export interface ICieloSaleResponse {
+    MerchantOrderId: string;
+    Customer: {
+        Name: string;
+    };
+    Payment: {
+        Installments: number;
+        Interest: string;
+        Capture: boolean;
+        CreditCard: {
+            ExpirationDate: string;
+            BrandId: number;
+            IssuerId: number;
+            TruncateCardNumberWhenPrinting: boolean;
+            InputMode: string;
+            AuthenticationMethod: string;
+            IsFallback: boolean;
+            SaveCard: boolean;
+        };
+        Amount: number;
+        ReceivedDate: string;
+        Provider: string;
+        Status: number;
+        PhysicalTransactionStatus: number;
+        IsSplitted: boolean;
+        ReturnMessage: string;
+        ReturnCode: string;
+        ExtendedMessage: string;
+        PaymentId: string;
+        Type: string;
+        Currency: string;
+        Country: string;
+        Links: [
+            {
+                Method: string;
+                Rel: string;
+                Href: string;
+            }
+        ];
+        PaymentDateTime: string;
+        ServiceTaxAmount: number;
+        SoftDescriptor: string;
+        ProductId: number;
+        PinPadInformation: {
+            TerminalId: string;
+            SerialNumber: string;
+            PhysicalCharacteristics: string;
+            ReturnDataInfo: string;
+        },
+        PrintMessage: [],
+        ReceiptInformation: [],
+        Receipt: {},
+        ProofOfSale: string;
+        InitializationVersion: number;
+        ConfirmationStatus: number;
+        SubordinatedMerchantId: string;
+        OfflinePaymentType: string;
+    };
+};

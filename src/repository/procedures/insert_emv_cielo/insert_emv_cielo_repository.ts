@@ -1,4 +1,4 @@
-import { BIND_INOUT, BIND_OUT, BindParameters, CURSOR, NUMBER, Result, ResultSet, STRING } from "oracledb";
+import { BIND_INOUT, BIND_OUT, BindParameters, CURSOR, NUMBER, STRING } from "oracledb";
 import { OracleDB } from "../../../infra/oracle_db/oracle_db";
 import { IProcedure } from "../procedure";
 import { InsertEMVCieloParams } from "./insert_emv_cielo_params";
@@ -11,14 +11,24 @@ export class AbtInsertEMVCieloRepository implements IProcedure<AbtInsEmvCieloPro
         try {
             const bindParams = await this.handleParams(data);
 
-            const result = await this.oracle.execProcedure<AbtInsEmvCieloProcedure<AbtInsEmvCieloProcedureResponse>>("ABT_INS_EMV_CIELO", bindParams);
+            const result = await this.oracle.execProcedure<AbtInsEmvCieloProcedure<[]>>("ABT_INS_EMV_CIELO", bindParams);
             
             if (result?.outBinds?.p_cursor) {
-                const cursor = result.outBinds.p_cursor;
-                const resultData = await cursor.getRow();
+                const cursor = result.outBinds.p_cursor;                
+                const row = await cursor.getRow();
+                const metadata = cursor.metaData;
                 await cursor.close();
-                return resultData;
-            } else return undefined;
+                
+                if (row && metadata) {
+                    const formattedData = metadata.reduce((obj, column, index) => {
+                        obj[column.name.toLowerCase()] = row[index];
+                        return obj;
+                    }, {} as Record<string, any>);
+                    
+                    return formattedData as AbtInsEmvCieloProcedureResponse;
+                }
+                return undefined;
+            }
         } catch(err) {
             console.log(`Error to execute Procedure!\nData${JSON.stringify(data)}\n${err}`);
         }

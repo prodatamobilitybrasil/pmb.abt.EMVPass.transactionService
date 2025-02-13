@@ -1,5 +1,6 @@
 import { ITransactionEMV } from "../entities/transaction_emv";
-import { CieloAuthGateway } from "../gateways/cielo_auth/cielo_auth_gateway";
+import { CieloCheckGateway } from "../gateways/cielo_check/cielo_check_gateway";
+import { CieloConfirmationGateway } from "../gateways/cielo_confirmation/cielo_confirmation_gateway";
 import { CieloSaleGateway } from "../gateways/cielo_sale/cielo_sale_gateway";
 import { TransactionEMVRepository } from "../repository/collections/transaction_emv/transaction_emv_repository";
 import { AbtInsertEMVCieloRepository } from "../repository/procedures/insert_emv_cielo/insert_emv_cielo_repository";
@@ -16,14 +17,28 @@ export class TransactionEMVUsecase implements IUsecase<ITransactionEMV> {
 
     async handle(data: ITransactionEMV): Promise<void> {
         delete data._id;
+        
+        const cieloCheck = new CieloCheckGateway(data);
+        const checkResult = await cieloCheck.execute();
+        if(checkResult) {
+            const message = { message: "Transaction Alreadly Executed: ", data: checkResult };
+            throw new Error(JSON.stringify(message));
+        }
+
+        const cieloSale = new CieloSaleGateway(data);
+        const saleResult = await cieloSale.execute();
+        if(!saleResult) {
+            const message = { message: "Transaction Sale Error: ", data: saleResult };
+            throw new Error(JSON.stringify(message));
+        }
+        console.log("Transaction Executed on Sale API from CIELO - MerchantOrderId: ", saleResult.MerchantOrderId);
+
         const objectId = await this.repository_transaction_emv.insert(data);
-        console.log("Result from insert: ", objectId);
-        const findData = await this.repository_transaction_emv.find(data);
-        console.log("RESULT FIND: ", findData);
-        const updateResult = await this.repository_transaction_emv.update(objectId!, {...data, pantoken: "new pantoken" });
-        console.log("RESULT UPDATE: ", updateResult);
-        const deleteData = await this.repository_transaction_emv.delete(objectId!);
-        console.log("DELETE RESULT: ", deleteData);
+        if (!objectId) {
+            const message = { message: "Error to insert transaction in MongoDB: ", data };
+            throw new Error(JSON.stringify(message));
+        }
+        console.log("Transaction Inserted on MongoDB - _id: ", objectId);
 
         const { tlvData, brand, etrn_id, etrn_status, fare_value, merchantId, paymentDeviceType } = data;
         const resultProc = await this.repository_insert_emv_cielo.execute({
@@ -38,15 +53,19 @@ export class TransactionEMVUsecase implements IUsecase<ITransactionEMV> {
             etrn_tlvdata: tlvData,
 
         });
-        console.log("PROC RESULT: ", resultProc);
 
-        const cieloAuth = new CieloAuthGateway();
-        const token = await cieloAuth.execute();
-        console.log("TOKEN: ", token);
+        if (!resultProc) {
+            const message = { message: "Error to insert transaction in OracleDB: ", data };
+            throw new Error(JSON.stringify(message));
+        }
+        console.log("Transaction Inserted on OracleDB - ecrd_id: ", resultProc.ecrd_id);        
 
-
-        const cieloSale = new CieloSaleGateway(data);
-        const chargeResult = await cieloSale.execute();
-        console.log("CHARGE RESULT: ", chargeResult);
+        const cieloConfirmation = new CieloConfirmationGateway(data);
+        const confirmationResult = await cieloConfirmation.execute();
+        if (!confirmationResult) {
+            const message = { message: "Error to confirme transaction in CieloAPI: ", data };
+            throw new Error(JSON.stringify(message));
+        }
+        console.log("Transaction Confirmed in CieloAPI - ReturnMessage: ", confirmationResult.ReturnMessage); 
     }
 }

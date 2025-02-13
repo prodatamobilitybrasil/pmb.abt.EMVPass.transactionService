@@ -4,6 +4,7 @@ interface IOracleDB {
     connect(): Promise<void>;
     disconnect(): Promise<void>;
     exec<T>(query: string, params: BindParameters): Promise<Result<T> | undefined>;
+    execProcedure<T>(procedure_name: string, bind_params: BindParameters): Promise<Result<T> | undefined>;
 }
 
 export class OracleDB implements IOracleDB {

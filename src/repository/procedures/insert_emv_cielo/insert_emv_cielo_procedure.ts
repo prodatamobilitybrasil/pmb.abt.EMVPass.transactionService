@@ -40,7 +40,7 @@ export interface AbtInsEmvCieloProcedureResponse {
 	etrn_aid?: string;
 	etrn_ksn?: string;
 	etrn_lastretry?: Date;
-	EPMS_code?: number;
+	epms_code?: number;
 	etrn_status?: string;
 	etrn_reguser?: string;
 	etrn_regdate?: Date;
@@ -61,7 +61,7 @@ export interface AbtInsEmvCieloProcedureResponse {
 	etrn_id?: number;
 	etrn_retrytype?: number;
 	etrn_desc?: string;
-	FARE_value?: number;
+	fare_value?: number;
 	etrn_elapsed_process?: number;
 	etrn_elapsed_acquirer?: number;
 	etrn_nsu?: string;
